@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "1006730049859",
+    "firebase_url": "https://carbide-program-151217.firebaseio.com",
+    "project_id": "carbide-program-151217",
+    "storage_bucket": "carbide-program-151217.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1006730049859:android:11bb531af27a42b1",
+        "android_client_info": {
+          "package_name": "me.prasheelsoni.bookmyspace"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1006730049859-o65csbiebe65358mu5viesskrobioi2l.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "me.prasheelsoni.bookmyspace",
+            "certificate_hash": "AA4182D8C4B1350FEBD30FAA06C0C6FD331FCDF9"
+          }
+        },
+        {
+          "client_id": "1006730049859-413kbmeav844vu792h6tvg1kgq4jsrj0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBuFjSA9tCgv21RmJR0Bxq0KwlsrXOuKvo"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1006730049859-413kbmeav844vu792h6tvg1kgq4jsrj0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
