@@ -103,7 +103,7 @@ public class LoginActivity extends AppCompatActivity {
     private LinearLayout llSignin;
     private Button btnSignup;
     private Button btnSignin;
-    private TextInputEditText mEmailView, mPasswordView, mEmailSignUp, mPasswordSignup, mMobileSignup;
+    private TextInputEditText mEmailView, mPasswordView, mEmailSignUp, mPasswordSignup, mMobileSignup, mNameSignup, mAadharSignup;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -122,6 +122,13 @@ public class LoginActivity extends AppCompatActivity {
 
         mEmailView = (TextInputEditText)findViewById(R.id.login_email);
         mPasswordView = (TextInputEditText)findViewById(R.id.login_password);
+
+        mEmailSignUp = (TextInputEditText)findViewById(R.id.signup_email);
+        mNameSignup = (TextInputEditText)findViewById(R.id.signup_name);
+        mPasswordSignup = (TextInputEditText)findViewById(R.id.signup_password);
+        mMobileSignup = (TextInputEditText)findViewById(R.id.signup_mobile);
+        mAadharSignup = (TextInputEditText)findViewById(R.id.signup_aadhar);
+
 
         tvSignupInvoker.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -228,7 +235,42 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    private void signUp(){}
+    private void signUp(){
+
+
+        Retrofit adapter = new Retrofit.Builder()
+                .baseUrl("http://bms-ps11.rhcloud.com/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        NetworkCalls service = adapter.create(NetworkCalls.class);
+
+        Call<LoginRegisterPojo> response =  service.register(mNameSignup.getText().toString(),mEmailView.getText().toString(), mPasswordView.getText().toString(),mMobileSignup.getText().toString(), mAadharSignup.getText().toString());
+
+        response.enqueue(new Callback<LoginRegisterPojo>() {
+            @Override
+            public void onResponse(Call<LoginRegisterPojo> call, Response<LoginRegisterPojo> response) {
+                if(response.isSuccessful()){
+                    if(response.body().getCode().equals("1")){
+                        sharedPrefUtil.addString("loggedin","1");
+                        startActivity(new Intent(LoginActivity.this, HomeActivity.class));
+                    }else{
+
+                        Toast.makeText(LoginActivity.this, response.body().getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<LoginRegisterPojo> call, Throwable t) {
+
+                Toast.makeText(LoginActivity.this, "Network Connection Failed", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
+
+    }
 
 }
 

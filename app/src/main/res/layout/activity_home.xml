@@ -70,7 +70,8 @@
     <ImageView
         android:layout_width="240dp"
         android:layout_height="200dp"
-        android:src="@drawable/icon"
+        android:src="@drawable/banner"
+        android:scaleType="centerCrop"
         android:background="#ffffff"
         />
 

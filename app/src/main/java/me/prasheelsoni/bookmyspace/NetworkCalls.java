@@ -2,6 +2,7 @@ package me.prasheelsoni.bookmyspace;
 
 import java.util.List;
 
+import me.prasheelsoni.bookmyspace.pojo.Booking;
 import me.prasheelsoni.bookmyspace.pojo.LoginRegisterPojo;
 import me.prasheelsoni.bookmyspace.pojo.ParkingSlot;
 import retrofit2.Call;
@@ -30,6 +31,11 @@ public interface NetworkCalls {
     @FormUrlEncoded
     @POST("/getSelectedSlotDetails.php/")
     Call<ParkingSlot> getSealectedSlotDetails(@Field("name")String name);
+
+
+    @FormUrlEncoded
+    @POST("/bookSlot.php")
+    Call<Booking> bookSlot(@Field("lotName") String lotName, @Field("numberBooked") String numberBooked, @Field("parkingCharges")String parkingCharges, @Field("bookingTime") String bookingTime);
 
 
 }

@@ -25,6 +25,7 @@ public class DrawerItemAdapter extends RecyclerView.Adapter<DrawerItemAdapter.Dr
         View v = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.drawer_list_item, parent, false);
         DrawerItem vh = new DrawerItem(v);
+
         return vh;
     }
     @Override
@@ -41,7 +42,10 @@ public class DrawerItemAdapter extends RecyclerView.Adapter<DrawerItemAdapter.Dr
     public int getItemCount() {
         return drawerItems.size();
     }
-    public class DrawerItem extends RecyclerView.ViewHolder{
+
+
+
+    public class DrawerItem extends RecyclerView.ViewHolder {
         ImageView icon;
         TextView text;
         public DrawerItem(View itemView) {
@@ -50,6 +54,7 @@ public class DrawerItemAdapter extends RecyclerView.Adapter<DrawerItemAdapter.Dr
             icon = (ImageView) itemView.findViewById(R.id.image);
         }
         public TextView getTextView(){return text;}
+
     }
 
 

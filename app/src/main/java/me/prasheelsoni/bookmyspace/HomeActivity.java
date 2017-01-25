@@ -7,6 +7,8 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -36,6 +38,7 @@ import com.yayandroid.locationmanager.constants.ProviderType;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import me.prasheelsoni.bookmyspace.adapters.DrawerItemAdapter;
 import me.prasheelsoni.bookmyspace.pojo.ParkingSlot;
@@ -45,7 +48,8 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class HomeActivity extends LocationBaseActivity implements OnMapReadyCallback, GoogleMap.OnInfoWindowClickListener, GoogleMap.OnMarkerClickListener {
+public class HomeActivity extends LocationBaseActivity implements OnMapReadyCallback, GoogleMap.OnInfoWindowClickListener, GoogleMap.OnMarkerClickListener
+,NavigationView.OnNavigationItemSelectedListener{
 
     private GoogleMap mMap;
     public Location currentLocation;
@@ -103,6 +107,8 @@ public class HomeActivity extends LocationBaseActivity implements OnMapReadyCall
             }
             public void onDrawerOpened(View drawerView) {
                 super.onDrawerOpened(drawerView);
+                mDrawerRecyclerView.bringToFront();
+                mDrawerLayout.requestLayout();
             }
         };
         mDrawerLayout.setDrawerListener(mDrawerToggle);
@@ -116,6 +122,9 @@ public class HomeActivity extends LocationBaseActivity implements OnMapReadyCall
         mapFragment.getMapAsync(this);
 
         LocationManager.setLogType(LogType.GENERAL);
+
+
+
     }
 
 
@@ -205,7 +214,7 @@ public class HomeActivity extends LocationBaseActivity implements OnMapReadyCall
         currentLocation = location;
         LatLng sydney;
         sydney = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Your Location"));
+        //mMap.addMarker(new MarkerOptions().position(sydney).title("Your Location"));
         mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(sydney,14.0f));
        // mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
     }
@@ -227,8 +236,17 @@ public class HomeActivity extends LocationBaseActivity implements OnMapReadyCall
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            Address address = addressList.get(0);
+            Address address = null;
+            if(addressList!=null) {
+                 address = addressList.get(0);
+            }
+            else{
+                address = new Address(new Locale("en_US"));
+                address.setLatitude(currentLocation.getLatitude());
+                address.setLongitude(currentLocation.getLongitude());
+            }
             LatLng latLng = new LatLng(address.getLatitude(), address.getLongitude());
+            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng,14.0f));
             findParkings(latLng);
 
 //            mMap.addMarker(new MarkerOptions().position(latLng).title("Marker"));
@@ -324,5 +342,14 @@ public class HomeActivity extends LocationBaseActivity implements OnMapReadyCall
     public boolean onMarkerClick(Marker marker) {
       marker.showInfoWindow();
     return true;
+    }
+
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+        Toast.makeText(this, "Clicked!!!", Toast.LENGTH_SHORT).show();
+
+        return true;
     }
 }

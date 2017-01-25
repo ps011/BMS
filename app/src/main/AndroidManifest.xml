@@ -46,7 +46,9 @@
         <activity
             android:name=".LoginActivity"
             android:label="@string/title_activity_login" />
-        <activity android:name=".SplashActivity" android:theme="@style/AppTheme.NoActionBar">
+        <activity
+            android:name=".SplashActivity"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -62,6 +64,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="me.prasheelsoni.bookmyspace.HomeActivity" />
         </activity>
+        <activity android:name=".RecieptActivity"></activity>
     </application>
 
 </manifest>
